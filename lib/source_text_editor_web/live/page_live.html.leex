@@ -1,1 +1,26 @@
-<textarea style="resize: none"></textarea>
+<button phx-click="display" value="<%= @edit %>"><%= if @edit, do: "Hide", else: "Display" %> textarea</button>
+
+<form phx-change="styling"> <%# form-lv event: https://github.com/phoenixframework/phoenix_live_view/issues/754#issuecomment-608986506 %>
+  <%# NEXT: add text upload feature
+      https://www.w3schools.com/howto/howto_html_file_upload_button.asp %>
+
+  <%= if IO.inspect(@edit) do %>
+    <textarea name="content" style="resize: none" autofocus><%= @content %></textarea>
+  <% end %>
+
+  <span>space between lines:</span>
+  <input style="width: 5rem" type="text" name="line-height" value="<%= @line_height %>">
+
+  <select phx-click="font" name="font">
+    <%# bug where select displays 1st option on phx-change... so extra code %>
+    <option selected value="<%= @font %>"><%= @font %></option>
+    <%= unless @font == "Times New Roman" do %>
+      <option value="Times New Roman">Times New Roman</option>
+    <% end %>
+    <%= unless @font == "Open Sans" do %>
+      <option value="Open Sans">Open Sans</option>
+    <% end %>
+  </select>
+</form>
+
+<div style="white-space: pre-wrap; height: 10rem; line-height: <%= @line_height %>rem; font-family: <%= @font %>"><%= @content %></div>
