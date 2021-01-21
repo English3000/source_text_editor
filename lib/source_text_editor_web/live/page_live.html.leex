@@ -1,10 +1,12 @@
 <button phx-click="display" value="<%= @edit %>"><%= if @edit, do: "Hide", else: "Display" %> textarea</button>
 
-<form phx-change="styling"> <%# form-lv event: https://github.com/phoenixframework/phoenix_live_view/issues/754#issuecomment-608986506 %>
-  <%# NEXT: add text upload feature
-      https://www.w3schools.com/howto/howto_html_file_upload_button.asp %>
+<form phx-change="styling" phx-submit="upload"> <%# form-lv event: https://github.com/phoenixframework/phoenix_live_view/issues/754#issuecomment-608986506 %>
+  <div>
+    <%= live_file_input @uploads.file %> <%# https://hexdocs.pm/phoenix_live_view/uploads.html %>
+    <input type="submit" value="upload .txt file">
+  </div>
 
-  <%= if IO.inspect(@edit) do %>
+  <%= if @edit do %>
     <textarea name="content" style="resize: none" autofocus><%= @content %></textarea>
   <% end %>
 
@@ -12,15 +14,12 @@
   <input style="width: 5rem" type="text" name="line-height" value="<%= @line_height %>">
 
   <select phx-click="font" name="font">
-    <%# bug where select displays 1st option on phx-change... so extra code %>
     <option selected value="<%= @font %>"><%= @font %></option>
-    <%= unless @font == "Times New Roman" do %>
-      <option value="Times New Roman">Times New Roman</option>
-    <% end %>
-    <%= unless @font == "Open Sans" do %>
-      <option value="Open Sans">Open Sans</option>
+    <%= for value <- ["Times New Roman", "Open Sans"] do %>
+      <%# bug where select displays 1st option on phx-change... so unless clause %>
+      <%= unless @font == value do %><option value="<%= value %>"><%= value %></option><% end %>
     <% end %>
   </select>
 </form>
 
-<div style="white-space: pre-wrap; height: 10rem; line-height: <%= @line_height %>rem; font-family: <%= @font %>"><%= @content %></div>
+<div style="white-space: pre-wrap;  overflow-wrap: break-word;  height: 10rem;  line-height: <%= @line_height %>rem; font-family: <%= @font %>"><%= @content %></div>

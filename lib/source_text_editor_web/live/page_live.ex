@@ -3,7 +3,9 @@ defmodule SourceTextEditorWeb.PageLive do
 
   @spec mount(any, any, Phoenix.LiveView.Socket.t()) :: {:ok, any}
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, line_height: 2, font: "Times New Roman", content: "", edit: true)}
+    {:ok, socket
+          |> allow_upload(:file, accept: ~w(.txt))
+          |> assign(line_height: 2, font: "Times New Roman", content: "", edit: true)}
   end
 
   def handle_event("styling", state, socket) do
@@ -22,5 +24,14 @@ defmodule SourceTextEditorWeb.PageLive do
   def handle_event("display", %{"value" => edit}, socket) do
     IO.inspect(edit == "true")
     {:noreply, assign(socket, edit: if(edit == "true", do: false, else: true))}
+  end
+
+  def handle_event("upload", state, socket) do
+    IO.inspect("submitted")
+    text = consume_uploaded_entries(socket, :file, fn %{path: path}, _entry ->
+             File.read!(path) |> IO.inspect
+           end) |> List.first || ""
+
+    {:noreply, assign(socket, content: Map.get(state, "content", "") <> "\n" <> text)}
   end
 end
