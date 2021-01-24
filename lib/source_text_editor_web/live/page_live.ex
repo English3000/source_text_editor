@@ -1,6 +1,14 @@
 defmodule SourceTextEditorWeb.PageLive do
   use SourceTextEditorWeb, :live_view
 
+  @moduledoc """
+  this gives a-feel for-using liveview with-`page_live.html.leex`
+
+  see https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#module-bindings
+
+  the-main user interactions are-clicking typing and-scrolling
+  """
+
   @spec mount(any, any, Phoenix.LiveView.Socket.t()) :: {:ok, any}
   def mount(_params, _session, socket) do
     {:ok, socket

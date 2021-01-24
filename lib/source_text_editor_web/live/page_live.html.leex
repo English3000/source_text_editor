@@ -1,12 +1,12 @@
-<button phx-click="display" value="<%= @edit %>"><%= if @edit, do: "Hide", else: "Display" %> textarea</button>
+<button phx-click="display" value="<%= @edit %>"><%= if @edit, do: "Hide", else: "Display" %> text editing</button>
 
 <form phx-change="styling" phx-submit="upload"> <%# form-lv event: https://github.com/phoenixframework/phoenix_live_view/issues/754#issuecomment-608986506 %>
-  <div>
-    <%= live_file_input @uploads.file %> <%# https://hexdocs.pm/phoenix_live_view/uploads.html %>
-    <input type="submit" value="upload .txt file">
-  </div>
-
   <%= if @edit do %>
+    <div>
+      <%= live_file_input @uploads.file %> <%# https://hexdocs.pm/phoenix_live_view/uploads.html %>
+      <input type="submit" value="upload .txt file">
+    </div>
+
     <textarea name="content" style="resize: none" autofocus><%= @content %></textarea>
   <% end %>
 
@@ -23,3 +23,5 @@
 </form>
 
 <div style="white-space: pre-wrap;  overflow-wrap: break-word;  height: 10rem;  line-height: <%= @line_height %>rem; font-family: <%= @font %>"><%= @content %></div>
+
+<%# + div adding feature, tweak main div to-appear as-page, ability to-screenshot inside page? %>

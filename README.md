@@ -1,20 +1,15 @@
 # SourceTextEditor
 
-To start your Phoenix server:
+Download. `cd` into repo.
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `npm install` inside the `assets` directory
-  * Start Phoenix endpoint with `mix phx.server`
+Run `npm install` in `/assets` folder.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+`cd` back to root.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+`mix phx.server` and navigate to `localhost:4000` in browser.
 
-## Learn more
+## **Features:**
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+* styling: font, line height text `<input>`s
+* file uploads
+* toggling `<textarea>`
